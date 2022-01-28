@@ -45,22 +45,27 @@ puts("Enter the extension to save the file: ")
 puts("1. Text\n2.CSV")
 extension=gets().chomp().strip()
 delimiter={"1"=>"|","2"=>","}
+if(extension=="1")
+    file_extension=".txt"
+elsif(extension=="2") 
+   file_extension =".csv"
+end
 for item in items
     total_tax += item.item_tax
     total_price += item.item_total
     if convert_to == "INR" || convert_to == "USD"
-        File.open("tax.csv","a"){|f| f.write("qty: #{item.qty*convert["rates"][convert_to]} \
+        File.open("tax"+"#{file_extension}","a"){|f| f.write("qty: #{item.qty*convert["rates"][convert_to]} \
 #{delimiter[extension]} item_description: #{item.item_description} \
 #{delimiter[extension]} price: #{item.price*convert["rates"][convert_to]} \
 #{delimiter[extension]} item_tax: #{item.item_tax*convert["rates"][convert_to]}\n")}
         else
-            File.open("tax.csv","a"){|f| f.write("qty: #{item.qty}\
+            File.open("tax"+"#{file_extension}","a"){|f| f.write("qty: #{item.qty}\
                 #{delimiter[extension]} item_description: #{item.item_description}\
                 #{delimiter[extension]} price: #{item.price}\
                 #{delimiter[extension]} item_tax: #{item.item_tax}\n")}
     end
 end
-File.open("tax.csv","a"){|file| file.write("Total-tax: #{total_tax}\nTotal_price #{total_price.round(2)}\n")}
+File.open("tax"+"#{file_extension}","a"){|file| file.write("Total-tax: #{total_tax}\nTotal_price #{total_price.round(2)}\n")}
 
 
 def get_items()
