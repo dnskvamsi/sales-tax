@@ -19,13 +19,23 @@ def get_items_from_the_user()
     items=[]
     loop do   
         print("Enter Quantity in Integers: ")
-        qty=gets().chomp().strip().to_i
+        begin
+            qty=Integer(gets().chomp().strip())
+        rescue => exception
+            puts("**Please Enter a valid quantity of integer type**")
+            qty=gets().chomp().strip().to_i
+        end
         print("Enter Item Description: ")
         item_description = gets().chomp().strip()
         print("Enter Shelf Price of the Item: ")
-        price= gets().chomp().strip().to_f
+        begin
+            price= Float(gets().chomp().strip())
+        rescue => exception
+            puts("**Please enter a valid price: **")
+            price= gets().chomp().strip().to_f
+        end
         add_item(Item.new(qty,item_description,price),items)
-        print("To Exit press q: ")
+        print("To Exit press q or press any other key to add more items: ")
         add_or_quit=gets().chomp().strip().downcase()
         break if add_or_quit =="q"
     end
@@ -35,6 +45,18 @@ end
 def add_item(item,item_arr)
     item_arr.push(item)
 end
+
+
+def total_calculator(items)
+    total_price=0
+    total_tax=0
+    for item in items
+        total_price += item.item_total
+        total_tax += item.item_tax
+    end
+    return total_price,total_tax
+end
+
 
 def write_to_file(items)
     print("please select the conversion INR,USD,EUR: ")
@@ -56,9 +78,8 @@ def write_to_file(items)
         #{delimiter[extension]} Item_description\
         #{delimiter[extension]} Price\
         #{delimiter[extension]} Item_tax\n")
+    total_price,total_tax= total_calculator(items)
     for item in items
-        total_tax += item.item_tax
-        total_price += item.item_total
         if convert_to == "INR" || convert_to == "USD" || convert_to=="EUR"
             fileobject.write("#{item.qty} \
     #{delimiter[extension]} #{item.item_description} \
@@ -70,5 +91,6 @@ def write_to_file(items)
     
 end
 
-
-write_to_file(get_items_from_the_user())
+if $PROGRAM_NAME == __FILE__
+    write_to_file(get_items_from_the_user())
+end
