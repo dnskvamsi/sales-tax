@@ -88,6 +88,7 @@ class FileCreator
         for row in @data
              fileobject.write("#{row.join(@delimiter)}\n")
         end
+        return File.expand_path(File.dirname(__FILE__))
     end
 end
 
@@ -139,7 +140,7 @@ def data_generator()
     ## File object creation and writing the data into the file
     file=FileCreator.new(data,file_name,file_extension,delimiter)
     file.write()
-
+    return data
 end
 
 if $PROGRAM_NAME == __FILE__
