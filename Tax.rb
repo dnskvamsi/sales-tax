@@ -14,13 +14,9 @@ class Tax
     def imported?
         return @item_desc.downcase.include? "imported"
     end
+
     def exempted?
-        for item in @@exempted_items
-            if @item_desc.downcase().include? item
-                return true
-            end
-        end
-        return false
+        @@exempted_items.any? {|item| @item_desc.downcase.include? item}
     end
 
     def calculate()
