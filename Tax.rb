@@ -20,7 +20,7 @@ class Tax
     end
 
     def calculate()
-        if !(@price.is_a? Numeric)
+        if !(@price.is_a? Numeric and @price>=0)
             raise ArgumentError
         end
         @tax = 0

@@ -3,17 +3,6 @@ require_relative "../Item"
 require_relative "../Tax"
 
 RSpec.describe "sales-tax-calculation" do
-    around(:example,do_csv: true) do |ex|
-        @file= FileCreator.new([[1,2],[2,3]],"test",".csv",",")
-        @filepath=@file.write()
-        @file_loc= @filepath+"/test.csv"
-        @file1= FileCreator.new([[1,2],[2,3]],"test1",".txt",",")
-        @filepath1=@file1.write()
-        @file_loc1= @filepath1+"/test1.txt"
-        ex.run
-        File.delete(@file_loc)
-        File.delete(@file_loc1)
-    end
     context "when testing add_item()" do
         it "should add the new item to the array" do
             arr=[]
@@ -32,12 +21,23 @@ RSpec.describe "sales-tax-calculation" do
         end
     end
 
-    context "When testing the FileCreator class", do_csv: true do
-        it "should return a file path and the file should be created when given csv extension" do
-            expect(File.exist? @file_loc).to be_truthy
-        end
-        it "should return a file path and the file should be created when given txt extension" do
-            expect(File.exist? @file_loc1).to be_truthy
+
+    context "When testing Generate Class" do
+        it "should return a data with respect to the items" do
+            gene=Generate.new()
+            item1=Item.new(2,"books",20)
+            item2=Item.new(3,"books",20)
+            allow(gene).to receive(:get_items_from_the_user).and_return([item1,item2])
+            allow(gene).to receive(:fetch_conversion_rates).and_return(1)
+            allow(gene).to receive(:get_file_details).and_return(["testing",".csv",","])
+            allow(gene).to receive(:total_calculator).and_return([100,0])
+            expect(gene.data_generator).to eq([
+                ["Qty", "Item_description", "Price", "Item_tax"],
+                [2, "books", 20, 0.0],
+                [3, "books", 20, 0.0], 
+                ["total_price: 100"],
+                ["total_tax: 0"]])
+            File.delete("testing.csv")
         end
     end
 end
