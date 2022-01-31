@@ -3,16 +3,6 @@ require_relative "../InputDetails"
 
 RSpec.describe "Testing InputDetails Module" do
 
-    context "when testing add_item()" do
-        it "should add the new item to the array" do
-            arr=[]
-            id=InputDetails.new()
-            id.add_item("v",arr)
-            expect(arr.length).to eq(1)
-            expect(arr.pop).to eq("v")
-        end
-    end
-
     context "When Testing qty_test() " do
         it "should return integer if the input is integer" do
             id=InputDetails.new()
@@ -76,6 +66,13 @@ RSpec.describe "Testing InputDetails Module" do
             allow(id).to receive(:get_input).and_return("5")
             expect(id.get_qty_from_user).to eq(5)
         end
+
+        it "should return positive integer force the user to enter integer value" do
+            id=InputDetails.new()
+            allow(id).to receive(:display_message).and_return("")
+            allow(id).to receive(:get_input).and_return("a","-1.0","-11","","1")
+            expect(id.get_qty_from_user).to eq(1)
+        end
     end
 
     context "When testing get_item_desc_from_user()" do
@@ -93,6 +90,12 @@ RSpec.describe "Testing InputDetails Module" do
             allow(id).to receive(:display_message).and_return("")
             allow(id).to receive(:get_input).and_return(25.5)
             expect(id.get_shelf_price_from_user).to eq(25.5)
+        end
+        it "should return positive integer 0 or greater than 0 and force the user to input the value" do
+            id=InputDetails.new()
+            allow(id).to receive(:display_message).and_return("")
+            allow(id).to receive(:get_input).and_return("a","-1.0","-11","","-2.0","1.1")
+            expect(id.get_shelf_price_from_user).to eq(1.1)
         end
     end
 
@@ -132,24 +135,6 @@ RSpec.describe "Testing InputDetails Module" do
             allow(id).to receive(:cont_or_quit?).and_return(false,false,true)
             expect(id.items.length).to eq(3)
             
-        end
-    end
-
-    context "When Testing display_message()" do
-        it "should return 'yes' when message is yes" do
-            id = InputDetails.new()
-            # expect(id.display_message("yes")).to eq("yes") 
-        end
-    end
-
-    context "When testing total_calculator()" do
-        it "should return total price and total tax" do
-            id=InputDetails.new()
-            items=[]
-            it1 = Item.new(1,"books",20)
-            it2 = Item.new(1,"books",30)
-            items.push(it1,it2)
-            expect(id.total_calculator(items)).to eq([50,0])
         end
     end
 end

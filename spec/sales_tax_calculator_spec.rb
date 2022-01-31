@@ -12,7 +12,9 @@ RSpec.describe "sales_tax_calculator" do
             input=double(InputDetails,:get_items_from_the_user=>[item1,item2],
                 :fetch_conversion_rates=>1,:get_file_details=>["testing",".csv",","],
                 :total_calculator=>[100,0])
+
             gene=Generate.new(input)
+            
             expect(gene.data_generator).to eq([
                 ["Qty", "Item_description", "Price", "Item_tax"],
                 [2, "books", 20, 0.0],
