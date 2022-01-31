@@ -14,7 +14,7 @@ RSpec.describe "sales_tax_calculator" do
                 :total_calculator=>[100,0])
 
             gene=Generate.new(input)
-            
+
             expect(gene.data_generator).to eq([
                 ["Qty", "Item_description", "Price", "Item_tax"],
                 [2, "books", 20, 0.0],
