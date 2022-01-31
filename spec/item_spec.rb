@@ -1,6 +1,7 @@
 require "../Tax"
 require "../Item"
 RSpec.describe "Item" do
+
     context "When testing the Item Class with valid arguments" do
         it "should be a instance of tax object when we call tax-variable" do
             item = Item.new(2,"books",29.99)
@@ -21,7 +22,8 @@ RSpec.describe "Item" do
             expect(item.item_total).to eq(59.98)
         end
     end
-    context "When passing Invalid arguments" do
+
+    context "When passing Invalid arguments to qty" do
         it "should raise a error when you provide invalid input string to the qty" do
             expect{Item.new("a","books",29.99)}.to raise_error(ArgumentError)
         end
@@ -37,5 +39,24 @@ RSpec.describe "Item" do
         it "should raise a error when you provide -ve value to the price" do
             expect{Item.new(-2.2,"books",29.99)}.to raise_error(ArgumentError)
         end
+        it "should raise a error when you provide -ve value to the price" do
+            expect{Item.new(2.2,"books",29.99)}.to raise_error(ArgumentError)
+        end
     end
+
+    context "When passing Invalid arguments to price" do
+        it "should raise a error when you provide invalid input string to the price" do
+            expect{Item.new(1,"books","a")}.to raise_error(ArgumentError)
+        end
+        it "should raise a error when you provide invalid input string to the price" do
+            expect{Item.new(1,"books",-29.99)}.to raise_error(ArgumentError)
+        end
+        it "should raise a error when you provide -ve value to the price" do
+            expect{Item.new(1,"books","ab")}.to raise_error(ArgumentError)
+        end
+        it "should raise a error when you provide -0.1 value to the qty" do
+            expect{Item.new(1,"books",-0.1)}.to raise_error(ArgumentError)
+        end
+    end
+
 end
