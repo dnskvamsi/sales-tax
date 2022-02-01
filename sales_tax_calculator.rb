@@ -4,6 +4,8 @@ require_relative "FileCreate"
 require 'net/http'
 require 'json'
 require_relative 'InputDetails'
+require_relative 'TxtFileWriter'
+Dir["#{Dir.pwd}"+"/*FileWriter.rb"].each {|file| require file }
 
 class Generate
 
@@ -22,7 +24,7 @@ class Generate
         convert = @item_details.fetch_conversion_rates()
 
         ## get the file details
-        file_name,file_extension,delimiter = @item_details.get_file_details()
+        file_name,file_class = @item_details.get_file_details()
 
         ## Calculate the tax
         total_price,total_tax = @item_details.total_calculator(items)
@@ -41,7 +43,7 @@ class Generate
         data.push(["total_price: #{(total_price*convert).round(2)}"],["total_tax: #{(total_tax*convert).round(2)}"])
 
         ## File object creation and writing the data into the file
-        file=FileCreator.new(data,file_name,file_extension,delimiter)
+        file=Object.const_get(file_class).new(data,file_name)
         file.write()
         return data
     end

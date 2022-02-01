@@ -10,7 +10,7 @@ RSpec.describe "sales_tax_calculator" do
             item1=Item.new(2,"books",20)
             item2=Item.new(3,"books",20)
             input=double(InputDetails,:get_items_from_the_user=>[item1,item2],
-                :fetch_conversion_rates=>1,:get_file_details=>["testing",".csv",","],
+                :fetch_conversion_rates=>1,:get_file_details=>["testing","CSVFileWriter"],
                 :total_calculator=>[100,0])
 
             gene=Generate.new(input)
@@ -24,4 +24,5 @@ RSpec.describe "sales_tax_calculator" do
             File.delete("testing.csv")
         end
     end
+    
 end

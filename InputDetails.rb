@@ -1,4 +1,5 @@
 class InputDetails
+    
     attr_accessor :items
     
     def get_input()
@@ -101,22 +102,17 @@ class InputDetails
     end
 
     def get_file_details()
-        print(display_message("Enter the extension to save the file(1,2): \n"))
-        print(display_message("1. Text\n2. CSV\n"))
-        extension=get_input()
+        # print(display_message("Enter the extension to save the file(1,2): \n"))
+        # print(display_message("1. Text\n2. CSV\n"))
+        files_in_pwd=Dir.entries(Dir.pwd)
+        files_in_pwd.keep_if {|filename| filename.end_with? "FileWriter.rb"}
+        plugins = files_in_pwd.map{|filename| filename.gsub(/FileWriter.rb/,"").downcase}
+        print(display_message("Enter one of the extensions given below\n"))
+        puts(plugins)
+        plug=get_input().downcase
         print(display_message("Enter the name of the file without extension: "))
         file_name=get_input()
-        delimiter={"1"=>"|","2"=>","}
-        if(extension=="1")
-            file_extension=".txt"
-        elsif(extension=="2") 
-            file_extension =".csv"
-        else
-            print(display_message("File Extension doesn't exists by default it is saved as .txt"))
-            file_extension=".txt"
-            extension="1"
-        end
-        return file_name,file_extension,delimiter[extension]
+        return file_name,files_in_pwd[plugins.find_index(plug)].gsub(/.rb/,"")
     end
 
 end

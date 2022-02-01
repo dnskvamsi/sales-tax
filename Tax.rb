@@ -1,4 +1,5 @@
 class Tax
+    
     attr_accessor :item_desc,:price
 
     @@food_items = ["chocolate", "waffles", "cakes", "chips", "soft drink"]

@@ -123,20 +123,21 @@ RSpec.describe "InputDetails Class" do
     end
 
     context "When Testing get_file_details()" do
-        it "should return 'test','.csv',',' when given 2 as input" do
-            allow(id).to receive(:get_input).and_return("2","test")
+        it "should return 'test','CSVFileWriter' when given csv as input" do
+            allow(id).to receive(:get_input).and_return("csv","test")
             allow(id).to receive(:display_message).and_return("")
-            expect(id.get_file_details).to eq(["test",".csv",","])
+            expect(id.get_file_details).to eq(["test","CSVFileWriter"])
         end
-        it "should return 'test','.txt','|' when given 1 as input" do
-            allow(id).to receive(:get_input).and_return("1","test")
+        it "should return 'test','TxtFileWriter' when given txt as input" do
+            allow(id).to receive(:get_input).and_return("txt","test")
             allow(id).to receive(:display_message).and_return("")
-            expect(id.get_file_details).to eq(["test",".txt","|"])
+            expect(id.get_file_details).to eq(["test","TxtFileWriter"])
         end
-        it "should return 'test','.txt','|' if the input is other than 1 and 2" do
-            allow(id).to receive(:get_input).and_return("a","test")
+        it "should return 'test','PdfFileWriter' if the input pdf" do
+            allow(id).to receive(:get_input).and_return("pdf","test")
             allow(id).to receive(:display_message).and_return("")
-            expect(id.get_file_details).to eq(["test",".txt","|"])
+            expect(id.get_file_details).to eq(["test","PdfFileWriter"])
         end
     end
+    
 end

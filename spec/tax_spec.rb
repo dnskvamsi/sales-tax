@@ -1,7 +1,9 @@
 # require "../Tax"
 require_relative "../Tax"
+
+
 RSpec.describe "Tax" do
-    
+
     context "When testing the imported?" do
         it "should say 'imported' if the item_desc contains imported word(valid)" do
             tax=Tax.new("book imported",30.2)
