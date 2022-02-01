@@ -2,6 +2,7 @@ require_relative "../sales_tax_calculator"
 require_relative "../Item"
 require_relative "../Tax"
 require_relative "../InputDetails"
+require_relative "../Conversion"
 
 RSpec.describe "sales_tax_calculator" do
 
@@ -10,10 +11,10 @@ RSpec.describe "sales_tax_calculator" do
             item1=Item.new(2,"books",20)
             item2=Item.new(3,"books",20)
             input=double(InputDetails,:get_items_from_the_user=>[item1,item2],
-                :fetch_conversion_rates=>1,:get_file_details=>["testing","CSVFileWriter"],
+                :get_file_details=>["testing","CSVFileWriter"],
                 :total_calculator=>[100,0])
-
-            gene=Generate.new(input)
+            conversion=double(CoversionData,:fetch_conversion_rates=>1)
+            gene=Generate.new(input,conversion)
 
             expect(gene.data_generator).to eq([
                 ["Qty", "Item_description", "Price", "Item_tax"],

@@ -10,18 +10,18 @@ class InputDetails
         return message
     end
 
-    def fetch_conversion_rates()
-        print("please select the conversion INR,USD,EUR: ")
-        convert_to = get_input().upcase
-        url = "http://data.fixer.io/api/latest?access_key=93cae40df10b0521f99e1271a38794b9&base=EUR&symbols=INR,USD,EUR"
-        uri = URI(url)
-        response = Net::HTTP.get(uri)
-        convert=JSON.parse(response)
-        if(convert["success"]==false)
-            convert["rates"]={"USD"=>1.12,"EUR"=>1,"INR"=>83.58}
-        end
-        return convert["rates"][convert_to]
-    end
+    # def fetch_conversion_rates()
+    #     print("please select the conversion INR,USD,EUR: ")
+    #     convert_to = get_input().upcase
+    #     url = "http://data.fixer.io/api/latest?access_key=93cae40df10b0521f99e1271a38794b9&base=EUR&symbols=INR,USD,EUR"
+    #     uri = URI(url)
+    #     response = Net::HTTP.get(uri)
+    #     convert=JSON.parse(response)
+    #     if(convert["success"]==false)
+    #         convert["rates"]={"USD"=>1.12,"EUR"=>1,"INR"=>83.58}
+    #     end
+    #     return convert["rates"][convert_to]
+    # end
 
     def total_calculator(items)
         total_price=0
@@ -43,7 +43,7 @@ class InputDetails
         begin
             qty_test()
         rescue => exception
-            print(display_message("RE-"))
+            print(display_message("Check and RE-"))
             get_qty_from_user()
         end
     end
@@ -58,7 +58,7 @@ class InputDetails
         begin
             shelf_price_test()
         rescue => exception
-            print(display_message("RE-"))
+            print(display_message("Check and RE-"))
             get_shelf_price_from_user()
         end
     end
