@@ -102,8 +102,6 @@ class InputDetails
     end
 
     def get_file_details()
-        # print(display_message("Enter the extension to save the file(1,2): \n"))
-        # print(display_message("1. Text\n2. CSV\n"))
         files_in_pwd=Dir.entries(Dir.pwd)
         files_in_pwd.keep_if {|filename| filename.end_with? "FileWriter.rb"}
         plugins = files_in_pwd.map{|filename| filename.gsub(/FileWriter.rb/,"").downcase}
@@ -118,7 +116,7 @@ class InputDetails
         else
            file_class_name = "FileCreator"
         end
-        
+
         return file_name,file_class_name
     end
 

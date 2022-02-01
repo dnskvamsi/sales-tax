@@ -1,5 +1,5 @@
-require "../Tax"
-require "../Item"
+require_relative "../Tax"
+require_relative "../Item"
 
 
 RSpec.describe "Item" do

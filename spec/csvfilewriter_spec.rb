@@ -1,4 +1,4 @@
-require_relative "../plugins/CSVFileWriter"
+require_relative "../CSVFileWriter"
 
 RSpec.describe "CSVFileWriter Class" do
     around(:example,do_csv: true) do |ex|

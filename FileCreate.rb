@@ -4,8 +4,6 @@ class FileCreator
 
     def initialize(data,file_name)
         @data = data
-        # @extension = extension
-        # @delimiter = delimiter
         @file_name = file_name
     end
 
