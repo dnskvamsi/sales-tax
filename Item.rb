@@ -3,7 +3,8 @@ require_relative "Tax"
 
 class Item
 
-    attr_accessor :qty,:item_description,:price,:item_price,:tax,:item_tax,:item_total
+    attr_accessor :qty,:item_description,:price
+    attr_reader :item_price,:tax,:item_tax,:item_total
 
     def initialize(qty, item_description, price)
         raise ArgumentError unless (qty.is_a? Integer and price.is_a? Numeric)
@@ -12,7 +13,7 @@ class Item
         @item_description = item_description
         @price = price
         @item_price = @qty * @price
-        @tax = Tax.new(@item_description, @item_price)
+        @tax = Tax.new(self)
         @item_tax = @tax.calculate()
         @item_total = @item_tax + @item_price
     end

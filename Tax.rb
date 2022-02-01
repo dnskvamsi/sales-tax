@@ -1,15 +1,15 @@
 class Tax
     
-    attr_accessor :item_desc,:price
+    attr_reader :item_desc,:price
 
     FOOD_ITEMS = ["chocolate", "waffles", "cakes", "chips", "soft drink"]
     MEDICAL_ITEMS = ["tablets", "capsules", "syrup"]
     BOOK_ITEMS = ["book"]
     EXEMPTED_ITEMS = FOOD_ITEMS + MEDICAL_ITEMS + BOOK_ITEMS
     
-    def initialize(item_desc, price)
-        @item_desc = item_desc
-        @price = price
+    def initialize(item=Item.new(qty, item_description, price))
+        @item_desc=item.item_description
+        @price = item.price
     end
 
     def imported?

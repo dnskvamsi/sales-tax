@@ -12,7 +12,7 @@ class InputDetails
 
     def fetch_conversion_rates()
         print("please select the conversion INR,USD,EUR: ")
-        convert_to = get_input()
+        convert_to = get_input().upcase
         url = "http://data.fixer.io/api/latest?access_key=93cae40df10b0521f99e1271a38794b9&base=EUR&symbols=INR,USD,EUR"
         uri = URI(url)
         response = Net::HTTP.get(uri)
@@ -106,7 +106,8 @@ class InputDetails
         files_in_pwd.keep_if {|filename| filename.end_with? "FileWriter.rb"}
         plugins = files_in_pwd.map{|filename| filename.gsub(/FileWriter.rb/,"").downcase}
         print(display_message("Enter one of the extensions given below\n"))
-        puts(plugins)
+        print(display_message("#{plugins.join("\n")}\n"))
+        # puts(plugins)
         plug=get_input().downcase
         print(display_message("Enter the name of the file without extension: "))
         file_name=get_input()
