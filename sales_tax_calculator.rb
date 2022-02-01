@@ -4,8 +4,10 @@ require_relative "FileCreate"
 require 'net/http'
 require 'json'
 require_relative 'InputDetails'
-require_relative 'TxtFileWriter'
+# require_relative 'TxtFileWriter'
 Dir["#{Dir.pwd}"+"/*FileWriter.rb"].each {|file| require file }
+
+# Dir["#{Dir.pwd}"+"/plugins"+"/*FileWriter.rb"].each {|file| require file }
 
 class Generate
 

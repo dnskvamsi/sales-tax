@@ -138,6 +138,11 @@ RSpec.describe "InputDetails Class" do
             allow(id).to receive(:display_message).and_return("")
             expect(id.get_file_details).to eq(["test","PdfFileWriter"])
         end
+        it "should return 'test','FileCreator' if the input not in the plugins" do
+            allow(id).to receive(:get_input).and_return("er","test")
+            allow(id).to receive(:display_message).and_return("")
+            expect(id.get_file_details).to eq(["test","FileCreator"])
+        end
     end
     
 end

@@ -2,10 +2,10 @@ class Tax
     
     attr_accessor :item_desc,:price
 
-    @@food_items = ["chocolate", "waffles", "cakes", "chips", "soft drink"]
-    @@medical_items = ["tablets", "capsules", "syrup"]
-    @@book_items = ["book"]
-    @@exempted_items = @@food_items + @@medical_items + @@book_items
+    FOOD_ITEMS = ["chocolate", "waffles", "cakes", "chips", "soft drink"]
+    MEDICAL_ITEMS = ["tablets", "capsules", "syrup"]
+    BOOK_ITEMS = ["book"]
+    EXEMPTED_ITEMS = FOOD_ITEMS + MEDICAL_ITEMS + BOOK_ITEMS
     
     def initialize(item_desc, price)
         @item_desc = item_desc
@@ -17,7 +17,7 @@ class Tax
     end
 
     def exempted?
-        @@exempted_items.any? {|item| @item_desc.downcase.include? item}
+        EXEMPTED_ITEMS.any? {|item| @item_desc.downcase.include? item}
     end
 
     def calculate()
@@ -33,4 +33,5 @@ class Tax
         end
         return ((@tax / 0.05).round() * 0.05).round(2)
     end
+
 end

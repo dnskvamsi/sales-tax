@@ -112,7 +112,14 @@ class InputDetails
         plug=get_input().downcase
         print(display_message("Enter the name of the file without extension: "))
         file_name=get_input()
-        return file_name,files_in_pwd[plugins.find_index(plug)].gsub(/.rb/,"")
+
+        if (plugins.find_index(plug))
+            file_class_name = files_in_pwd[plugins.find_index(plug)].gsub(/.rb/,"")
+        else
+           file_class_name = "FileCreator"
+        end
+        
+        return file_name,file_class_name
     end
 
 end
