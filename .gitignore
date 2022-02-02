@@ -7,3 +7,4 @@ tax_spec*
 Tax.rb
 *.csv
 *.pdf
+input_details_test_spec.rb

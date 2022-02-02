@@ -4,18 +4,19 @@ require_relative "../InputDetails"
 RSpec.describe "InputDetails Class" do
 
     let(:id){ InputDetails.new() }
+    let(:item){Item.new()}
     
     context "When testing get_qty_from_user()" do
-        it "should return a value of 5" do
+        it "should return a value of 5" do 
             allow(id).to receive(:display_message).and_return("")
             allow(id).to receive(:get_input).and_return("5")
-            expect(id.get_qty_from_user).to eq(5)
+            expect(id.get_qty_from_user(item)).to eq(5)
         end
 
         it "should return positive integer force the user to enter integer value" do
             allow(id).to receive(:display_message).and_return("")
-            allow(id).to receive(:get_input).and_return("a","-1.0","-11","","1")
-            expect(id.get_qty_from_user).to eq(1)
+            allow(id).to receive(:get_input).and_return("a","-1.0","-11","",1)
+            expect(id.get_qty_from_user(item)).to eq(1)
         end
     end
 
@@ -23,20 +24,20 @@ RSpec.describe "InputDetails Class" do
         it "should return a value of 'books' when given" do
             allow(id).to receive(:display_message).and_return("")
             allow(id).to receive(:get_input).and_return("books")
-            expect(id.get_item_desc_from_user).to eq("books")
+            expect(id.get_item_desc_from_user(item)).to eq("books")
         end
     end
 
     context "When testing get_shelf_price_from_user()" do
-        it "should return a value of 'books' when given" do
+        it "should return a value of '25.5' when given" do
             allow(id).to receive(:display_message).and_return("")
             allow(id).to receive(:get_input).and_return(25.5)
-            expect(id.get_shelf_price_from_user).to eq(25.5)
+            expect(id.get_shelf_price_from_user(item)).to eq(25.5)
         end
         it "should return positive integer 0 or greater than 0 and force the user to input the value" do
             allow(id).to receive(:display_message).and_return("")
             allow(id).to receive(:get_input).and_return("a","-1.0","-11","","-2.0","1.1")
-            expect(id.get_shelf_price_from_user).to eq(1.1)
+            expect(id.get_shelf_price_from_user(item)).to eq(1.1)
         end
     end
 
