@@ -5,52 +5,6 @@ RSpec.describe "InputDetails Class" do
 
     let(:id){ InputDetails.new() }
     
-    context "When Testing qty_test() " do
-        it "should return integer if the input is integer" do
-            allow(id).to receive(:get_input).and_return("5")
-            expect(id.qty_test()).to eq(5)
-        end
-        it "should raise an error if the input is -ve" do
-            allow(id).to receive(:get_input).and_return("-5")
-            expect{id.qty_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is float value" do
-            allow(id).to receive(:get_input).and_return("5.3")
-            expect{id.qty_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is -ve float value" do
-            allow(id).to receive(:get_input).and_return("-5.3")
-            expect{id.qty_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is string" do
-            allow(id).to receive(:get_input).and_return("a")
-            expect{id.qty_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is empty" do
-            allow(id).to receive(:get_input).and_return("")
-            expect{id.qty_test()}.to raise_error(ArgumentError)
-        end
-    end
-
-    context "When Testing shelf_price_test() " do
-        it "should return integer if the input is integer" do
-            allow(id).to receive(:get_input).and_return("5")
-            expect(id.shelf_price_test()).to eq(5.0)
-        end
-        it "should raise an error if the input is -ve" do
-            allow(id).to receive(:get_input).and_return("-5.3")
-            expect{id.shelf_price_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is string" do
-            allow(id).to receive(:get_input).and_return("a")
-            expect{id.shelf_price_test()}.to raise_error(ArgumentError)
-        end
-        it "should raise an error if the input is empty" do
-            allow(id).to receive(:get_input).and_return("")
-            expect{id.shelf_price_test()}.to raise_error(ArgumentError)
-        end
-    end
-
     context "When testing get_qty_from_user()" do
         it "should return a value of 5" do
             allow(id).to receive(:display_message).and_return("")

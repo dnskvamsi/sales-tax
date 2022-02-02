@@ -1,6 +1,11 @@
+require_relative "./InputDetailsValidation"
+
 class InputDetails
     
     attr_accessor :items
+    def initialize()
+        @test_input = InputDetailsTesting.new()
+    end
     
     def get_input()
         return gets().chomp().strip()
@@ -9,19 +14,6 @@ class InputDetails
     def display_message(message)
         return message
     end
-
-    # def fetch_conversion_rates()
-    #     print("please select the conversion INR,USD,EUR: ")
-    #     convert_to = get_input().upcase
-    #     url = "http://data.fixer.io/api/latest?access_key=93cae40df10b0521f99e1271a38794b9&base=EUR&symbols=INR,USD,EUR"
-    #     uri = URI(url)
-    #     response = Net::HTTP.get(uri)
-    #     convert=JSON.parse(response)
-    #     if(convert["success"]==false)
-    #         convert["rates"]={"USD"=>1.12,"EUR"=>1,"INR"=>83.58}
-    #     end
-    #     return convert["rates"][convert_to]
-    # end
 
     def total_calculator(items)
         total_price=0
@@ -33,30 +25,34 @@ class InputDetails
         return total_price,total_tax
     end
 
-    def qty_test()
-        qty=get_input()
-        (raise ArgumentError unless Integer(qty).positive?) or Integer(qty)
-    end
+    # def qty_test()
+    #     qty=get_input()
+    #     # (raise ArgumentError unless Integer(qty).positive?) or Integer(qty)
+    #     @test_input.qty_test(qty)
+    # end
 
     def get_qty_from_user()
         print(display_message("Enter Quantity in Integers: "))
         begin
-            qty_test()
+            # qty_test()
+            @test_input.qty_test(get_input())
         rescue => exception
             print(display_message("Check and RE-"))
             get_qty_from_user()
         end
     end
 
-    def shelf_price_test()
-        price= get_input()
-        (raise ArgumentError unless Float(price)>=0) or Float(price)
-    end
+    # def shelf_price_test()
+    #     price= get_input()
+    #     # (raise ArgumentError unless Float(price)>=0) or Float(price)
+    #     @test_input.price_test(price)
+    # end
 
     def get_shelf_price_from_user()
         print(display_message("Enter Shelf Price of the Item: "))
         begin
-            shelf_price_test()
+            # shelf_price_test()
+            @test_input.price_test(get_input())
         rescue => exception
             print(display_message("Check and RE-"))
             get_shelf_price_from_user()
