@@ -1,4 +1,4 @@
-require_relative "../Tax"
+# require_relative "../Tax"
 require_relative "../Item"
 
 

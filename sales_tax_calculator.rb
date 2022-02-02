@@ -1,5 +1,5 @@
 require_relative "Item"
-require_relative "Tax"
+# require_relative "Tax"
 require_relative "FileCreator"
 require 'net/http'
 require 'json'

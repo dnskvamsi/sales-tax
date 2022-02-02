@@ -1,6 +1,6 @@
 require_relative "../sales_tax_calculator"
 require_relative "../Item"
-require_relative "../Tax"
+# require_relative "../Tax"
 require_relative "../InputDetails"
 require_relative "../Conversion"
 
