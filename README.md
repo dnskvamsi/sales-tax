@@ -1,5 +1,5 @@
 ### To Run the app
 
 ```
-ruby sales_tax_calculator.rb
+ruby app.rb
 ```

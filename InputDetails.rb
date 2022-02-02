@@ -1,12 +1,8 @@
-require_relative "./InputDetailsValidation"
+# require_relative "./InputDetailsValidation"
 
 class InputDetails
     
     attr_accessor :items
-    def initialize()
-        @test_input = InputDetailsTesting.new()
-    end
-    
     def get_input()
         return gets().chomp().strip()
     end
@@ -25,44 +21,34 @@ class InputDetails
         return total_price,total_tax
     end
 
-    # def qty_test()
-    #     qty=get_input()
-    #     # (raise ArgumentError unless Integer(qty).positive?) or Integer(qty)
-    #     @test_input.qty_test(qty)
-    # end
 
-    def get_qty_from_user()
+    def get_qty_from_user(item)
         print(display_message("Enter Quantity in Integers: "))
         begin
-            # qty_test()
-            @test_input.qty_test(get_input())
+            item.qty= get_input()
+            item.qty=item.validate_qty()
         rescue => exception
             print(display_message("Check and RE-"))
-            get_qty_from_user()
+            get_qty_from_user(item)
         end
     end
 
-    # def shelf_price_test()
-    #     price= get_input()
-    #     # (raise ArgumentError unless Float(price)>=0) or Float(price)
-    #     @test_input.price_test(price)
-    # end
-
-    def get_shelf_price_from_user()
+    def get_shelf_price_from_user(item)
         print(display_message("Enter Shelf Price of the Item: "))
         begin
             # shelf_price_test()
-            @test_input.price_test(get_input())
+            item.price = get_input()
+            item.price = item.validate_price()
         rescue => exception
             print(display_message("Check and RE-"))
-            get_shelf_price_from_user()
+            get_shelf_price_from_user(item)
         end
     end
 
-    def get_item_desc_from_user()
+    def get_item_desc_from_user(item)
         print(display_message("Enter Item Description: "))
-        item_description = get_input()
-        return item_description
+        item.item_description = get_input()
+        return item.item_description
     end
 
     def cont_or_quit?
@@ -73,18 +59,24 @@ class InputDetails
 
     def get_items_from_the_user()
         @items=[]
-        loop do   
+        loop do 
+            ## Create new object for every loop
+
+            item= Item.new()  
+
             # Item Quantity Details
-            qty=get_qty_from_user()
+            qty=get_qty_from_user(item)
 
             #  Item Description Details
-            item_description = get_item_desc_from_user()
+            item_description = get_item_desc_from_user(item)
         
             # Item Shelf Price Details
-            price = get_shelf_price_from_user()
+            price = get_shelf_price_from_user(item)
 
             ## Add Items to the items array
-            add_item(Item.new(qty,item_description,price),@items)
+            # add_item(Item.new(qty,item_description,price),@items)
+            item.calculated_details()
+            add_item(item)
 
             ## To quit or re-enter (break out of the loop)
             break if cont_or_quit?
@@ -93,8 +85,8 @@ class InputDetails
         return @items
     end
 
-    def add_item(item,item_arr)
-        item_arr.push(item)
+    def add_item(item)
+        @items.push(item)
     end
 
     def get_file_details()

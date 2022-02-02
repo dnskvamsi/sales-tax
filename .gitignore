@@ -1,4 +1,9 @@
 test.rb
 test*.rb
 plugins/
-
+InputDetailsValidation.rb
+*.txt
+tax_spec*
+Tax.rb
+*.csv
+*.pdf

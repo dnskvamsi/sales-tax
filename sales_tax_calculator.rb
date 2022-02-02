@@ -1,6 +1,6 @@
 require_relative "Item"
 require_relative "Tax"
-require_relative "FileCreate"
+require_relative "FileCreator"
 require 'net/http'
 require 'json'
 require_relative './InputDetails'
@@ -23,7 +23,6 @@ class Generate
 
         ## Get Items 
         items = @item_details.get_items_from_the_user()
-
         ## Fetch the conversion data from the flixer
         # convert = @item_details.fetch_conversion_rates()
         convert = @conversion_data.fetch_conversion_rates()
@@ -38,24 +37,13 @@ class Generate
         data.push(["Qty","Item_description","Price","Item_tax"])
 
         for item in items
-            item_data=[]
-            item_data.push(item.qty)
-            item_data.push(item.item_description)
-            item_data.push((item.price*convert).round(2))
-            item_data.push((item.item_tax*convert).round(2))
-            data.push(item_data)
+            data.push(item.to_array(convert))
         end
         data.push(["total_price: #{(total_price*convert).round(2)}"],["total_tax: #{(total_tax*convert).round(2)}"])
 
         ## File object creation and writing the data into the file
-        file = Object.const_get(file_class).new(data,file_name)
-        file.write()
+        file = Object.const_get(file_class).new(items,file_name)
+        file.write(convert,total_price,total_tax)
         return data
     end
-end
-
-if $PROGRAM_NAME == __FILE__
-    input=InputDetails.new()
-    conversion_data=CoversionData.new("http://data.fixer.io/api/latest?access_key=93cae40df10b0521f99e1271a38794b9&base=EUR&symbols=INR,USD,EUR")
-    Generate.new(input,conversion_data).data_generator()
 end

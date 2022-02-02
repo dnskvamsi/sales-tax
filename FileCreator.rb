@@ -1,6 +1,11 @@
-require_relative "./FileCreator"
+class FileCreator
 
-class TxtFileWriter < FileCreator
+    attr_accessor :data,:file_name
+
+    def initialize(items,file_name)
+        @items = items
+        @file_name = file_name
+    end
 
     def heading()
         headings=["Qty","Item_description","Price","Item_tax"]
@@ -18,5 +23,5 @@ class TxtFileWriter < FileCreator
         @fileobject.close()
         return File.expand_path(File.dirname(__FILE__))
     end
-
+    
 end
